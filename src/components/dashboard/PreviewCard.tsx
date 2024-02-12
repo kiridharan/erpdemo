@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Col, Progress, Spin } from "antd";
 
 const colours = {
@@ -101,23 +100,13 @@ export default function PreviewCard({
   isLoading = false,
   entity = "invoice",
 }) {
-  const statisticsMap = useMemo(() => {
-    if (entity === "invoice") {
-      return defaultInvoiceStatistics.map((defaultStat) => {
-        const matchedStat = Array.isArray(statistics)
-          ? statistics.find((stat) => stat.tag === defaultStat.tag)
-          : null;
-        return matchedStat || defaultStat;
-      });
-    } else {
-      return defaultStatistics.map((defaultStat) => {
-        const matchedStat = Array.isArray(statistics)
-          ? statistics.find((stat) => stat.tag === defaultStat.tag)
-          : null;
-        return matchedStat || defaultStat;
-      });
-    }
-  }, [statistics, entity]);
+  console.log(entity);
+  defaultInvoiceStatistics.map((defaultStat) => {
+    const matchedStat = Array.isArray(statistics)
+      ? statistics.find((stat) => stat.tag === defaultStat.tag)
+      : null;
+    return matchedStat || defaultStat;
+  });
 
   const customSort = (a: any, b: any) => {
     const colorOrder = Object.values(colours);
@@ -155,7 +144,7 @@ export default function PreviewCard({
             <Spin />
           </div>
         ) : (
-          statisticsMap
+          statistics
             ?.map((status, index) => (
               <PreviewState
                 key={index}
